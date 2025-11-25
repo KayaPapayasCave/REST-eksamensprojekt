@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ClassLibrary">
+      <HintPath>..\..\..\..\OneDrive\Skrivebord\ClassLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
