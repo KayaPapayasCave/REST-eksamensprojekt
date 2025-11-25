@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
 );
 
 var app = builder.Build();
-app.UseCors("allowGetPut");
+app.UseCors("allowAnything");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
