@@ -22,11 +22,18 @@ namespace RESTEksamensprojekt.Controllers
         [ProducesResponseType(204)]
         public ActionResult<IEnumerable<Humidity>> Get()
         {
-            List<Humidity> result = repo.GetAll();
-            if (result.Count == 0)
-                return NoContent();
-            else
-                return Ok(result);
+            try 
+            { 
+                List<Humidity> result = repo.GetAll();
+                if (result.Count == 0)
+                    return NoContent();
+                else
+                    return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<HumidityController>/5
@@ -35,11 +42,18 @@ namespace RESTEksamensprojekt.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Humidity> Get(int id)
         {
-            Humidity? result = repo.GetById(id);
-            if (result == null)
-                return NotFound($"Ingen humidity med id: {id}");
-            else
-                return Ok(result);
+            try
+            { 
+                Humidity? result = repo.GetById(id);
+                if (result == null)
+                    return NotFound($"Ingen humidity med id: {id}");
+                else
+                    return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST api/<HumidityController>
@@ -54,7 +68,7 @@ namespace RESTEksamensprojekt.Controllers
                 string uri = $"{Request.Path}/{created?.Id}";
                 return Created(uri, created);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -77,7 +91,7 @@ namespace RESTEksamensprojekt.Controllers
                 else
                     return Ok(updated);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -89,12 +103,19 @@ namespace RESTEksamensprojekt.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Humidity> Delete(int id)
         {
-            Humidity? deleted = repo.DeleteHumidity(id);
+            try
+            {
+                Humidity? deleted = repo.DeleteHumidity(id);
 
-            if (deleted == null)
-                return NotFound($"Ingen humidity med id {id}");
-            else
-                return Ok(deleted);
+                if (deleted == null)
+                    return NotFound($"Ingen humidity med id {id}");
+                else
+                    return Ok(deleted);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
