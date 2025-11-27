@@ -16,7 +16,7 @@ namespace RESTEksamensprojekt.Controllers
             this.repo = repository;
         }
 
-        // GET: api/Lydstyrke
+        // GET: api/<NoiseController>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -29,7 +29,7 @@ namespace RESTEksamensprojekt.Controllers
                 return Ok(result);
         }
 
-        // GET api/<AktiehandelsController>/5
+        // GET api/<NoiseController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -42,7 +42,7 @@ namespace RESTEksamensprojekt.Controllers
                 return Ok(result);
         }
 
-        // POST api/<AktiehandelsController>
+        // POST api/<NoiseController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,7 +60,7 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // PUT api/<AktiehandelsController>/5
+        // PUT api/<NoiseController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,7 +83,7 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // DELETE api/<AktiehandelsController>/5
+        // DELETE api/<NoiseController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -6,51 +6,51 @@ namespace RESTEksamensprojekt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TemperatureController : ControllerBase
+    public class LightController : ControllerBase
     {
-        private readonly TemperatureRepository repo;
+        private readonly LightRepository repo;
 
         // Dependency Injection via Constructor
-        public TemperatureController(TemperatureRepository repository)
+        public LightController(LightRepository repository)
         {
             this.repo = repository;
         }
 
-        // GET: api/<TemperatureController>
+        // GET: api/<LightController>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public ActionResult<IEnumerable<Temperature>> Get()
+        public ActionResult<IEnumerable<Light>> Get()
         {
-            List<Temperature> result = repo.GetAll();
+            List<Light> result = repo.GetAll();
             if (result.Count == 0)
                 return NoContent();
             else
                 return Ok(result);
         }
 
-        // GET api/<TemperatureController>/5
+        // GET api/<LightController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Temperature> Get(int id)
+        public ActionResult<Light> Get(int id)
         {
-            Temperature? result = repo.GetById(id);
+            Light? result = repo.GetById(id);
             if (result == null)
-                return NotFound($"Ingen temperature med id: {id}");
+                return NotFound($"Ingen light med id: {id}");
             else
                 return Ok(result);
         }
 
-        // POST api/<TemperatureController>
+        // POST api/<LightController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Temperature> Post([FromBody] Temperature value)
+        public ActionResult<Light> Post([FromBody] Light value)
         {
             try
             {
-                Temperature? created = repo.AddTemperature(value);
+                Light? created = repo.AddLight(value);
                 string uri = $"{Request.Path}/{created?.Id}";
                 return Created(uri, created);
             }
@@ -60,20 +60,20 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // PUT api/<TemperatureController>/5
+        // PUT api/<LightController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Temperature> Put(int id, [FromBody] Temperature value)
+        public ActionResult<Light> Put(int id, [FromBody] Light value)
         {
             try
             {
                 value.Id = id;
-                Temperature? updated = repo.UpdateTemperature(value);
+                Light? updated = repo.UpdateLight(value);
 
                 if (updated == null)
-                    return NotFound($"Ingen temperature med id: {id}");
+                    return NotFound($"Ingen light med id: {id}");
                 else
                     return Ok(updated);
             }
@@ -83,16 +83,16 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // DELETE api/<TemperatureController>/5
+        // DELETE api/<LightController>/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Temperature> Delete(int id)
+        public ActionResult<Light> Delete(int id)
         {
-            Temperature? deleted = repo.DeleteTemperature(id);
+            Light? deleted = repo.DeleteLight(id);
 
             if (deleted == null)
-                return NotFound($"Ingen temperature med id {id}");
+                return NotFound($"Ingen light med id {id}");
             else
                 return Ok(deleted);
         }
