@@ -10,6 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<NoiseRepository>(new NoiseRepository());
+builder.Services.AddSingleton<HumidityRepository>(new HumidityRepository());
+builder.Services.AddSingleton<TemperatureRepository>(new TemperatureRepository());
+builder.Services.AddSingleton<LightRepository>(new LightRepository());
 
 builder.Services.AddCors(options =>
 {
