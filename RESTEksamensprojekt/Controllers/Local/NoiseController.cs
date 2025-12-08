@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ClassLibrary.Models;
 using ClassLibrary.Interfaces.Local;
+using ClassLibrary.Services.Local;
 
 namespace RESTEksamensprojekt.Controllers.Local
 {

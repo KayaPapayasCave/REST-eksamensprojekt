@@ -10,10 +10,6 @@ using ClassLibrary.Services.Local;
 /// </summary>
 var builder = WebApplication.CreateBuilder(args);
 
-// ------------------------------------------------------------
-// Add services to the container
-// ------------------------------------------------------------
-
 /// <summary>
 /// Adds MVC controllers and JSON converters for DateOnly and TimeOnly
 /// which are not natively supported by System.Text.Json.
@@ -21,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
     });
