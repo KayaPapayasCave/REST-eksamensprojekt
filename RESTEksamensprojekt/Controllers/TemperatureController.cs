@@ -4,19 +4,32 @@ using ClassLibrary;
 
 namespace RESTEksamensprojekt.Controllers
 {
+    /// <summary>
+    /// API controller providing CRUD endpoints for temperature data.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TemperatureController : ControllerBase
     {
         private readonly TemperatureRepository repo;
 
-        // Dependency Injection via Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemperatureController"/> class
+        /// using dependency injection.
+        /// </summary>
+        /// <param name="repository">The temperature repository used for data access.</param>
         public TemperatureController(TemperatureRepository repository)
         {
             this.repo = repository;
         }
 
-        // GET: api/<TemperatureController>
+        /// <summary>
+        /// Retrieves all stored temperature measurements.
+        /// </summary>
+        /// <returns>
+        /// 200 OK with a list of temperatures if data exists;
+        /// 204 No Content if the repository is empty.
+        /// </returns>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
@@ -36,14 +49,20 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // GET api/<TemperatureController>/5
+        /// <summary>
+        /// Retrieves a specific temperature measurement by id.
+        /// </summary>
+        /// <param name="id">The id of the temperature record.</param>
+        /// <returns>
+        /// 200 OK if found; 404 Not Found otherwise.
+        /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Temperature> Get(int id)
         {
             try
-            { 
+            {
                 Temperature? result = repo.GetById(id);
                 if (result == null)
                     return NotFound($"Ingen temperature med id: {id}");
@@ -56,7 +75,13 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // POST api/<TemperatureController>
+        /// <summary>
+        /// Creates a new temperature record.
+        /// </summary>
+        /// <param name="value">The temperature data to store.</param>
+        /// <returns>
+        /// 201 Created with the created record; 400 Bad Request if the input is invalid.
+        /// </returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,7 +99,15 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // PUT api/<TemperatureController>/5
+        /// <summary>
+        /// Updates an existing temperature record.
+        /// </summary>
+        /// <param name="id">The id of the record to update.</param>
+        /// <param name="value">The updated temperature values.</param>
+        /// <returns>
+        /// 200 OK with updated data, 404 Not Found if no record exists,
+        /// or 400 Bad Request on error.
+        /// </returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -97,14 +130,20 @@ namespace RESTEksamensprojekt.Controllers
             }
         }
 
-        // DELETE api/<TemperatureController>/5
+        /// <summary>
+        /// Deletes a temperature record by id.
+        /// </summary>
+        /// <param name="id">The id of the record.</param>
+        /// <returns>
+        /// 200 OK with the deleted item; 404 Not Found if nothing was deleted.
+        /// </returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Temperature> Delete(int id)
         {
             try
-            { 
+            {
                 Temperature? deleted = repo.DeleteTemperature(id);
 
                 if (deleted == null)
