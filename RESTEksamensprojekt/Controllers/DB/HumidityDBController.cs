@@ -5,26 +5,34 @@ using ClassLibrary.Interfaces.DB;
 
 namespace RESTEksamensprojekt.Controllers.DB
 {
+    /// <summary>
+    /// API controller providing CRUD endpoints for humidity data using a database repository.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class HumidityDBController : ControllerBase
     {
         private readonly IHumidityRepositoryDB repo;
 
-        // Dependency Injection via Constructor
+        /// <summary>
+        /// Initializes a new instance of <see cref="HumidityDBController"/> with dependency injection.
+        /// </summary>
+        /// <param name="repository">The humidity database repository.</param>
         public HumidityDBController(IHumidityRepositoryDB repository)
         {
             repo = repository;
         }
 
-        // GET: api/<HumidityController>
+        /// <summary>
+        /// Retrieves all humidity records from the database.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
         public async Task<ActionResult> GetAll()
         {
-            try 
-            { 
+            try
+            {
                 List<Humidity> result = await repo.GetAllAsync();
                 if (result.Count == 0)
                     return NoContent();
@@ -37,14 +45,16 @@ namespace RESTEksamensprojekt.Controllers.DB
             }
         }
 
-        // GET api/<HumidityController>/5
+        /// <summary>
+        /// Retrieves a humidity record by its ID.
+        /// </summary>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Get(int id)
         {
             try
-            { 
+            {
                 Humidity? result = await repo.GetByIdAsync(id);
                 if (result == null)
                     return NotFound($"Ingen humidity med id: {id}");
@@ -57,7 +67,9 @@ namespace RESTEksamensprojekt.Controllers.DB
             }
         }
 
-        // POST api/<HumidityController>
+        /// <summary>
+        /// Creates a new humidity record in the database.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,7 +87,9 @@ namespace RESTEksamensprojekt.Controllers.DB
             }
         }
 
-        // DELETE api/<HumidityController>/5
+        /// <summary>
+        /// Deletes a humidity record by ID.
+        /// </summary>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -84,7 +98,6 @@ namespace RESTEksamensprojekt.Controllers.DB
             try
             {
                 Humidity? deleted = await repo.DeleteHumidityAsync(id);
-
                 if (deleted == null)
                     return NotFound($"Ingen humidity med id {id}");
                 else
