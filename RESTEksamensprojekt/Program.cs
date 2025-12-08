@@ -31,8 +31,18 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 /// <summary>
-/// Registers repositories as Singletons, enabling them to be injected in controllers.
+/// Registers Local repositories as Singletons, enabling them to be injected in controllers.
+/// </summary>
+builder.Services.AddSingleton<INoiseRepository>(new NoiseRepository());
+builder.Services.AddSingleton<IHumidityRepository>(new HumidityRepository());
+builder.Services.AddSingleton<ITemperatureRepository>(new TemperatureRepository());
+builder.Services.AddSingleton<ILightRepository>(new LightRepository());
+
+
+/// <summary>
+/// Registers DB repositories as Singletons, enabling them to be injected in controllers.
 /// </summary>
 builder.Services.AddSingleton<NoiseRepository>(new NoiseRepository());
 builder.Services.AddSingleton<HumidityRepository>(new HumidityRepository());
