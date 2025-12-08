@@ -1,4 +1,7 @@
-using ClassLibrary;
+using ClassLibrary.Interfaces.DB;
+using ClassLibrary.Interfaces.Local;
+using ClassLibrary.Services.DB;
+using ClassLibrary.Services.Local;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<NoiseRepository>(new NoiseRepository());
-builder.Services.AddSingleton<HumidityRepository>(new HumidityRepository());
-builder.Services.AddSingleton<TemperatureRepository>(new TemperatureRepository());
-builder.Services.AddSingleton<LightRepository>(new LightRepository());
+// Local Repositories as Singletons for Dependency Injection
+builder.Services.AddSingleton<INoiseRepository>(new NoiseRepository());
+builder.Services.AddSingleton<IHumidityRepository>(new HumidityRepository());
+builder.Services.AddSingleton<ITemperatureRepository>(new TemperatureRepository());
+builder.Services.AddSingleton<ILightRepository>(new LightRepository());
+
+// DB Repositories as Singletons for Dependency Injection
+builder.Services.AddSingleton<INoiseRepositoryDB>(new NoiseRepositoryDB());
+builder.Services.AddSingleton<IHumidityRepositoryDB>(new HumidityRepositoryDB());
+builder.Services.AddSingleton<ITemperatureRepositoryDB>(new TemperatureRepositoryDB());
+builder.Services.AddSingleton<ILightRepositoryDB>(new LightRepositoryDB());
 
 builder.Services.AddCors(options =>
 {

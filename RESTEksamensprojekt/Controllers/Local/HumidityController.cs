@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClassLibrary;
+using ClassLibrary.Models;
+using ClassLibrary.Interfaces.Local;
 
-namespace RESTEksamensprojekt.Controllers
+namespace RESTEksamensprojekt.Controllers.Local
 {
     [Route("api/[controller]")]
     [ApiController]
     public class HumidityController : ControllerBase
     {
-        private readonly HumidityRepository repo;
+        private readonly IHumidityRepository repo;
 
         // Dependency Injection via Constructor
-        public HumidityController(HumidityRepository repository)
+        public HumidityController(IHumidityRepository repository)
         {
-            this.repo = repository;
+            repo = repository;
         }
 
         // GET: api/<HumidityController>
