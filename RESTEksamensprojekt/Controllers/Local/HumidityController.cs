@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClassLibrary;
+using ClassLibrary.Models;
+using ClassLibrary.Interfaces.Local;
 
-namespace RESTEksamensprojekt.Controllers
+namespace RESTEksamensprojekt.Controllers.Local
 {
     /// <summary>
     /// API controller providing CRUD endpoints for humidity data.
@@ -11,7 +12,7 @@ namespace RESTEksamensprojekt.Controllers
     [ApiController]
     public class HumidityController : ControllerBase
     {
-        private readonly HumidityRepository repo;
+        private readonly IHumidityRepository repo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HumidityController"/> class
@@ -20,7 +21,7 @@ namespace RESTEksamensprojekt.Controllers
         /// <param name="repository">The humidity repository used for data access.</param>
         public HumidityController(HumidityRepository repository)
         {
-            this.repo = repository;
+            repo = repository;
         }
 
         /// <summary>

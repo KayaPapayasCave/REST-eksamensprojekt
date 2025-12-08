@@ -1,43 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClassLibrary;
+using ClassLibrary.Models;
+using ClassLibrary.Interfaces.Local;
 
-namespace RESTEksamensprojekt.Controllers
+namespace RESTEksamensprojekt.Controllers.Local
 {
     /// <summary>
-    /// API controller providing CRUD endpoints for light data.
+    /// API controller providing CRUD endpoints for noise data.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class LightController : ControllerBase
+    public class NoiseController : ControllerBase
     {
-        private readonly LightRepository repo;
+        private readonly INoiseRepository repo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LightController"/> class
+        /// Initializes a new instance of the <see cref="NoiseController"/> class
         /// using dependency injection.
         /// </summary>
-        /// <param name="repository">The light repository used for data access.</param>
-        public LightController(LightRepository repository)
+        /// <param name="repository">The noise repository used for data access.</param>
+        public NoiseController(NoiseRepository repository)
         {
-            this.repo = repository;
+            repo = repository;
         }
 
         /// <summary>
-        /// Retrieves all stored light measurements.
+        /// Retrieves all stored noise measurements.
         /// </summary>
         /// <returns>
-        /// 200 OK with a list of light measurements if data exists;
+        /// 200 OK with a list of noise measurements if data exists;
         /// 204 No Content if the repository is empty.
         /// </returns>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public ActionResult<IEnumerable<Light>> Get()
+        public ActionResult<IEnumerable<Noise>> Get()
         {
             try
             {
-                List<Light> result = repo.GetAll();
+                List<Noise> result = repo.GetAll();
                 if (result.Count == 0)
                     return NoContent();
                 else
@@ -50,22 +51,22 @@ namespace RESTEksamensprojekt.Controllers
         }
 
         /// <summary>
-        /// Retrieves a specific light measurement by ID.
+        /// Retrieves a specific noise measurement by ID.
         /// </summary>
-        /// <param name="id">The ID of the light record.</param>
+        /// <param name="id">The ID of the noise record.</param>
         /// <returns>
         /// 200 OK with the record if found; 404 Not Found otherwise.
         /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Light> Get(int id)
+        public ActionResult<Noise> Get(int id)
         {
             try
             {
-                Light? result = repo.GetById(id);
+                Noise? result = repo.GetById(id);
                 if (result == null)
-                    return NotFound($"Ingen light med id: {id}");
+                    return NotFound($"Ingen noise med id: {id}");
                 else
                     return Ok(result);
             }
@@ -76,20 +77,20 @@ namespace RESTEksamensprojekt.Controllers
         }
 
         /// <summary>
-        /// Creates a new light record.
+        /// Creates a new noise record.
         /// </summary>
-        /// <param name="value">The light data to store.</param>
+        /// <param name="value">The noise data to store.</param>
         /// <returns>
         /// 201 Created with the created record; 400 Bad Request if input is invalid.
         /// </returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Light> Post([FromBody] Light value)
+        public ActionResult<Noise> Post([FromBody] Noise value)
         {
             try
             {
-                Light? created = repo.AddLight(value);
+                Noise? created = repo.AddNoise(value);
                 string uri = $"{Request.Path}/{created?.Id}";
                 return Created(uri, created);
             }
@@ -100,10 +101,10 @@ namespace RESTEksamensprojekt.Controllers
         }
 
         /// <summary>
-        /// Updates an existing light record.
+        /// Updates an existing noise record.
         /// </summary>
         /// <param name="id">The ID of the record to update.</param>
-        /// <param name="value">The updated light values.</param>
+        /// <param name="value">The updated noise values.</param>
         /// <returns>
         /// 200 OK with updated data; 404 Not Found if the record does not exist;
         /// 400 Bad Request on error.
@@ -112,15 +113,15 @@ namespace RESTEksamensprojekt.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Light> Put(int id, [FromBody] Light value)
+        public ActionResult<Noise> Put(int id, [FromBody] Noise value)
         {
             try
             {
                 value.Id = id;
-                Light? updated = repo.UpdateLight(value);
+                Noise? updated = repo.UpdateNoise(value);
 
                 if (updated == null)
-                    return NotFound($"Ingen light med id: {id}");
+                    return NotFound($"Ingen noise med id: {id}");
                 else
                     return Ok(updated);
             }
@@ -131,7 +132,7 @@ namespace RESTEksamensprojekt.Controllers
         }
 
         /// <summary>
-        /// Deletes a light record by ID.
+        /// Deletes a noise record by ID.
         /// </summary>
         /// <param name="id">The ID of the record.</param>
         /// <returns>
@@ -140,14 +141,14 @@ namespace RESTEksamensprojekt.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Light> Delete(int id)
+        public ActionResult<Noise> Delete(int id)
         {
             try
             {
-                Light? deleted = repo.DeleteLight(id);
+                Noise? deleted = repo.DeleteNoise(id);
 
                 if (deleted == null)
-                    return NotFound($"Ingen light med id {id}");
+                    return NotFound($"Ingen noise med id {id}");
                 else
                     return Ok(deleted);
             }

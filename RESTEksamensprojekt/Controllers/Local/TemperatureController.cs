@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClassLibrary;
+using ClassLibrary.Models;
+using ClassLibrary.Interfaces.Local;
 
-namespace RESTEksamensprojekt.Controllers
+namespace RESTEksamensprojekt.Controllers.Local
 {
     /// <summary>
     /// API controller providing CRUD endpoints for temperature data.
@@ -11,7 +12,7 @@ namespace RESTEksamensprojekt.Controllers
     [ApiController]
     public class TemperatureController : ControllerBase
     {
-        private readonly TemperatureRepository repo;
+        private readonly ITemperatureRepository repo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TemperatureController"/> class
@@ -20,7 +21,7 @@ namespace RESTEksamensprojekt.Controllers
         /// <param name="repository">The temperature repository used for data access.</param>
         public TemperatureController(TemperatureRepository repository)
         {
-            this.repo = repository;
+            repo = repository;
         }
 
         /// <summary>

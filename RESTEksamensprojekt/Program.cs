@@ -1,4 +1,7 @@
-using ClassLibrary;
+using ClassLibrary.Interfaces.DB;
+using ClassLibrary.Interfaces.Local;
+using ClassLibrary.Services.DB;
+using ClassLibrary.Services.Local;
 
 /// <summary>
 /// Entry point for the ASP.NET Core REST API application.
