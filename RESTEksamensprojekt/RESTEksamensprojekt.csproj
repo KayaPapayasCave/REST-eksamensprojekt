@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Reference Include="ClassLibrary">
-      <HintPath>..\..\..\..\OneDrive\Skrivebord\ClassLibrary.dll</HintPath>
+      <HintPath>..\..\ClassLibrary-eksamensprojekt\ClassLibrary\bin\Debug\net8.0\ClassLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 
