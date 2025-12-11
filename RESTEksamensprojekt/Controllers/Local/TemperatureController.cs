@@ -20,7 +20,7 @@ namespace RESTEksamensprojekt.Controllers.Local
         /// using dependency injection.
         /// </summary>
         /// <param name="repository">The temperature repository used for data access.</param>
-        public TemperatureController(TemperatureRepository repository)
+        public TemperatureController(ITemperatureRepository repository)
         {
             repo = repository;
         }

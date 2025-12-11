@@ -20,7 +20,7 @@ namespace RESTEksamensprojekt.Controllers.Local
         /// using dependency injection.
         /// </summary>
         /// <param name="repository">The light repository used for data access.</param>
-        public LightController(LightRepository repository)
+        public LightController(ILightRepository repository)
         {
             repo = repository;
         }

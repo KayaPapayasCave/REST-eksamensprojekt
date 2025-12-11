@@ -20,7 +20,7 @@ namespace RESTEksamensprojekt.Controllers.Local
         /// using dependency injection.
         /// </summary>
         /// <param name="repository">The noise repository used for data access.</param>
-        public NoiseController(NoiseRepository repository)
+        public NoiseController(INoiseRepository repository)
         {
             repo = repository;
         }

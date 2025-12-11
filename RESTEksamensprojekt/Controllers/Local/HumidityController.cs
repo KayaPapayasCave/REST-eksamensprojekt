@@ -20,7 +20,7 @@ namespace RESTEksamensprojekt.Controllers.Local
         /// using dependency injection.
         /// </summary>
         /// <param name="repository">The humidity repository used for data access.</param>
-        public HumidityController(HumidityRepository repository)
+        public HumidityController(IHumidityRepository repository)
         {
             repo = repository;
         }

@@ -30,12 +30,20 @@ builder.Services.AddSwaggerGen();
 
 
 /// <summary>
-/// Registers repositories as Singletons, enabling them to be injected in controllers.
+/// Registers database-backed repositories as singletons for dependency injection.
 /// </summary>
 builder.Services.AddSingleton<INoiseRepositoryDB>(new NoiseRepositoryDB());
 builder.Services.AddSingleton<IHumidityRepositoryDB>(new HumidityRepositoryDB());
 builder.Services.AddSingleton<ITemperatureRepositoryDB>(new TemperatureRepositoryDB());
 builder.Services.AddSingleton<ILightRepositoryDB>(new LightRepositoryDB());
+
+/// <summary>
+/// Registers local (in-memory/dummy) repositories as singletons for testing purposes.
+/// </summary>
+builder.Services.AddSingleton<INoiseRepository>(new NoiseRepository());
+builder.Services.AddSingleton<IHumidityRepository>(new HumidityRepository());
+builder.Services.AddSingleton<ITemperatureRepository>(new TemperatureRepository());
+builder.Services.AddSingleton<ILightRepository>(new LightRepository());
 
 /// <summary>
 /// Configures multiple CORS policies, including a policy that allows requests from anywhere.
